@@ -19,6 +19,12 @@
 			</div>
 		</nav>
 
+		<?php if(isset($_GET['feed']) && $_GET['feed'] == 'success') { ?>
+		<div class="bg-success text-center p-3">
+			<h1 class="lead">Tarefa inserida com sucesso!</h1>
+		</div>
+		<?php } ?>
+
 		<div class="container app">
 			<div class="row">
 				<div class="col-md-3 menu">
@@ -36,7 +42,7 @@
 								<h4>Nova tarefa</h4>
 								<hr />
 
-								<form action="scripts/tarefa_controller.php" method="post">
+								<form action="scripts/tarefa_controller.php?acao=inserir" method="post">
 									<div class="form-group">
 										<label>Descrição da tarefa:</label>
 										<input type="text" class="form-control" name="tarefa" placeholder="Exemplo: Lavar o carro">
