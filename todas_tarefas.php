@@ -2,10 +2,9 @@
 $acao = 'recuperar';
 require "../App-Lista-Tarefas/Db_AppTarefasSecure/tarefa_controller.php";
 
-// echo '<pre>';
-// print_r($tarefa);
-// echo '</pre>';
-
+if(!isset($_SESSION['usuario'])) {
+	header('location: login.php?acesso=negado');
+}
 ?>
 
 <html>
@@ -27,18 +26,29 @@ require "../App-Lista-Tarefas/Db_AppTarefasSecure/tarefa_controller.php";
 				<img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
 				App Lista Tarefas
 			</a>
+
+			<a class="btn btn-outline-danger" href="Db_AppTarefasSecure/encerrar_sessao.php">Sair</a>
 		</div>
 	</nav>
 
+	<!-- Dialog Atualizado -->
 	<?php if (isset($_GET['atualiza']) && $_GET['atualiza'] == 'success') { ?>
 		<div class="bg-success text-center p-3">
 			<h1 class="lead">Tarefa atualizada com sucesso!</h1>
 		</div>
 	<?php } ?>
 
+	<!-- Dialog Removida -->
 	<?php if (isset($_GET['remove']) && $_GET['remove'] == 'success') { ?>
 		<div class="bg-success text-center p-3">
 			<h1 class="lead">Tarefa Removida com sucesso!</h1>
+		</div>
+	<?php } ?>
+
+	<!-- Dialog Realizada -->
+	<?php if (isset($_GET['marcar']) && $_GET['marcar'] == 'success') { ?>
+		<div class="bg-success text-center p-3">
+			<h1 class="lead">A tarefa foi marcada como realizada!</h1>
 		</div>
 	<?php } ?>
 
@@ -60,13 +70,20 @@ require "../App-Lista-Tarefas/Db_AppTarefasSecure/tarefa_controller.php";
 							<hr />
 
 							<?php foreach ($tarefa as $key => $value) { ?>
-
+								
 								<div class="row mb-3 d-flex align-items-center tarefa">
-									<div id="tarefa_<?= $value->id ?>" class="col-sm-9"><?= $value->tarefa ?> (<?= $value->status ?>) </div>
+									<div id="tarefa_<?= $value->id ?>" class="col-sm-9"><?= $value->tarefa ?> <strong>(<?= $value->status ?>)</strong> </div>
 									<div class="col-sm-3 mt-2 d-flex justify-content-between">
 										<i class="fas fa-trash-alt fa-lg text-danger" onclick="excluir('<?= $value->id ?>')"></i>
+
+										<?php if($value->id_status == 1) { ?>
 										<i class="fas fa-edit fa-lg text-info" onclick="editar('<?= $value->id ?>' , '<?= $value->tarefa ?>')"></i>
-										<i class="fas fa-check-square fa-lg text-success"></i>
+										<i class="fas fa-check-square fa-lg text-success" onclick="marcar(<?= $value->id ?>)"></i>
+
+										<?php } else { ?>
+											<p class="lead">Realizada</p>
+										<?php } ?>
+
 									</div>
 								</div>
 

@@ -1,8 +1,8 @@
-function editar(id, tarefa) {
+function editar_pedentes(id, tarefa) {
 
     //Formulario
     let form = document.createElement('form');
-    form.action='scripts/tarefa_controller.php?acao=atualizar';
+    form.action='index.php?page=index&acao=atualizar';
     form.method='post';
     form.className='row';
 
@@ -38,10 +38,10 @@ function editar(id, tarefa) {
 
 }
 
-function excluir(id) {
-    location.href = 'todas_tarefas.php?acao=remover&id='+id;    
+function excluir_pedentes(id) {
+    location.href = 'index.php?page=index&acao=remover&id='+id;       
 }
 
-function marcar(id) {
-    location.href = 'todas_tarefas.php?acao=marcar&id='+id;   
+function marcar_pedentes(id) {
+    location.href = 'index.php?page=index&acao=marcar&id='+id;  
 }

@@ -1,3 +1,12 @@
+<?php
+$acao = '';
+require "../App-Lista-Tarefas/Db_AppTarefasSecure/tarefa_controller.php";
+
+if(!isset($_SESSION['usuario'])) {
+	header('location: login.php?acesso=negado');
+}
+?>
+
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -10,20 +19,24 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-light bg-light">
-			<div class="container">
-				<a class="navbar-brand" href="#">
-					<img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-					App Lista Tarefas
-				</a>
-			</div>
-		</nav>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="#">
+				<img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				App Lista Tarefas
+			</a>
+
+			<a class="btn btn-outline-danger" href="Db_AppTarefasSecure/encerrar_sessao.php">Sair</a>
+		</div>
+	</nav>
 
 		<?php if(isset($_GET['feed']) && $_GET['feed'] == 'success') { ?>
 		<div class="bg-success text-center p-3">
 			<h1 class="lead">Tarefa inserida com sucesso!</h1>
 		</div>
 		<?php } ?>
+
+		
 
 		<div class="container app">
 			<div class="row">
