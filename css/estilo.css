@@ -1,9 +1,121 @@
-.menu {
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#page-login {
+	background: linear-gradient(0deg, rgba(51,10,87,1) , rgba(5,153,158,1) , rgba(255,255,255,1) );
+	height: 100vh;
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    }
+    @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+    }
+    @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+    } 
+
+#login {
+	display: flex;
+    justify-items: center;
+    align-items: center;
+    height: 90vh;
+    background: url(../img/capa_login.png) no-repeat center center;
+    background-size: 400px;
+    background-position: 85% 150px;
+}
+
+.form_login {
+		border: none;
+		border-bottom: 1px solid #fff;
+		border-radius: 0;
+		margin: 10% 0;
+		background: none;
+}
+.form_login::placeholder {
+	color: #fff;
+}
+
+.form_login:focus {
+	background: none;
+	color: #fff;
+}
+
+#login .form-control {
+    color: #fff;
+}
+
+#collapseOne span a,
+#collapseTwo span a {
+	font-size: 0.7em;
+    text-decoration: none;
+    color: #fff;
+}
+
+#collapseOne button,
+#collapseTwo button {
+	font-size: 0.9em;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    display: block;
+    background: #5C2E91;
+    border-radius: 30px;
+    padding: 2% 11%;
+}
+
+#collapseOne .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active,
+#collapseTwo .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff;
+    background: none;
+    border: none;
+}
+
+.nav-tabs .nav-link {
+	margin-right: 30px;
+    color: #fff;
+    background: none;
+    border: none;
+}
+
+#collapseOne .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active,
+#collapseTwo .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border-bottom: 5px solid #01AEAA;
+    padding: 5px 0;
+}
+ 
+
+#accordion .nav-tabs {
+    border: none;
+}
+
+.menu {    
+    max-height: 240px;
+    padding: 3%;
+    background: #fff;
 	margin-bottom: 25px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
 .app {
 	margin-top: 25px;
+}
+
+.bg-white {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
 .pagina {
@@ -11,22 +123,163 @@
 	padding:25px !important;
 }
 
+.list-group-item {
+    padding: 0 !important;
+}
+
+.list-group {
+    width: 100%;
+    padding: 0;
+}
+
+
 li.list-group-item.active {
 	background-color: #fff;
-	border-color: #009933;
-    border-left:solid 10px #009933;
+	border-color: #5C2E91;
+    border-left:solid 10px #5C2E91;
+    transition: 0.5s;
 }
 
-li a {
-	color: #212529;
+#todas_tarefas ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+#todas_tarefas ul li {
+    position: relative;
+    list-style: none;
 }
 
-li a:hover {
+#todas_tarefas ul li a {
+    position: relative;
+    font-size: 1.3em;
+    text-decoration: none;
+    line-height: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.504);
+}
+
+#todas_tarefas ul li a::before {
+    font-size: 1em;
+    content: attr(data-text);
+    position: absolute;
+    color: #5C2E91;
+    width: 0;
+    overflow: hidden;
+    transition: 1s;
+    border-right: 4px solid #5C2E91;
+}
+
+#todas_tarefas ul li a:hover::before {
+    width: 150%;
+    -webkit-text-stroke: 1px #5C2E91;
+}
+
+#todas_tarefas li a:hover {
 	text-decoration: none;
 }
 
-h4 {
-	color: #009933 !important;
+
+
+.bord {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.296);
+    border-top: 1px solid (51, 51, 51, 0.229);
+    padding-bottom: 2%;
+
 }
 
 
+h4 {
+	color: #5C2E91 !important;
+}
+
+@media (max-width: 700px)
+{
+    #collapseOne,
+    #collapseTwo  {
+	background: #5c2e9159;
+    border-radius: 30px;
+}
+}
+
+/* Pagina todas tarefas */
+
+
+#tarefas {
+    background: #fff;
+}
+.img-menu {
+    width: 50px;
+    transition: 0.5s;
+}
+
+.img-menu img {    
+    margin-top: 10%;
+    border-radius: 50%;
+}
+#menu a {
+    border: none;
+}
+#menu .pos-f-t {
+    text-align: end;
+    transition: 0.5s;
+}
+
+#menu .pos-f-t.active {
+    width: 600px;
+    background: #8f01bfd6;
+    border-radius: 20px;
+}
+.pos-f-t.active .img-menu {
+    width: 100px;
+}
+
+#menu .form-control {
+    color: #000;
+}
+
+#tarefas {
+    background: url(../img/bg_todas_tarefas.png) no-repeat;
+    background-size: 600px;
+    background-position: 97% 156px;
+}
+
+.botao-fechar {
+    margin-top: -22%;
+    text-align: end;
+    margin-bottom: 15%;
+}
+
+
+.botoes:hover {
+    width: 100px;
+    text-align: start;
+}
+.botoes {
+    transition: 1s;
+}
+
+.botoes::before {
+    font-size: 1em;
+    content: attr(data-text);
+    position: absolute;
+    color: #5C2E91;
+    width: 0;
+    overflow: hidden;
+}
+
+.botoes:hover::before {
+    width: 30%;
+    padding-left: 25px;
+    -webkit-text-stroke: 1px #fff;
+    
+    transition: 0.5s;
+}
+
+
+#lead-size {
+    font-size: 1em;
+}

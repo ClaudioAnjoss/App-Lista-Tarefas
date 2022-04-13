@@ -77,8 +77,6 @@
             $stmt->execute();            
 
             return $stmt->fetchAll(PDO::FETCH_OBJ);
-
-            print_r($this->tarefa);
         }
 
         //update

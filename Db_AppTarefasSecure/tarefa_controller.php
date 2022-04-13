@@ -28,10 +28,12 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
         $tarefaService = new TarefaService($conexao, $login);
         $conta_criada = $tarefaService->cadastro();
 
-        if($conta_criada) {
-            header('location: ../login.php?conta=success');
+        if($conta_criada) {  
+            echo 'conta foi criada'          ;
+            $acao = 'login';
+            $conta = 'success';
         } else {
-            header('location: ../login.php?conta=failed');
+            header('location: ../index.php?conta=failed');
         }
 
         
@@ -39,6 +41,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
 
     // Login
     if($acao == 'login') {
+        echo 'chegou aqui';
         $usuario = $_POST['email'];
         $senha = $_POST['senha'];
 
@@ -51,11 +54,19 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
         $tarefaService = new TarefaService($conexao, $login);
         $login = $tarefaService->login();
 
+        if($acao == 'login' && $conta == 'success') {
+            $_SESSION['usuario'] = $login['0']['id'];
+            $_SESSION['nome'] = $login['0']['nome'];
+            header('location: ../nova_tarefa.php?conta=success');
+            die();
+        }
+
         if($login) {
             $_SESSION['usuario'] = $login['0']['id'];
-            header('location: ../todas_tarefas.php');
+            $_SESSION['nome'] = $login['0']['nome'];
+            header('location: ../nova_tarefa.php');
         } else {
-            header('location: ../login.php?login=erro');
+            header('location: ../index.php?login=erro');
         }
     }
 
@@ -97,7 +108,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
         $tarefaService->atualizar();
         
         if(isset($_GET['page']) && $_GET['page'] == 'index') {
-            header('location: index.php?atualiza=success');
+            header('location: tarefas_pendente.php?atualiza=success');
         } else {
             header('location: ../todas_tarefas.php?atualiza=success');
         }
@@ -115,7 +126,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
         $tarefaService->remover();
 
         if(isset($_GET['page']) && $_GET['page'] == 'index') {
-            header('location: index.php?remove=success');
+            header('location: tarefas_pendente.php?remove=success');
         } else {
             header('location: todas_tarefas.php?remove=success');
         }
@@ -133,7 +144,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
         $tarefaService->marcar();
 
         if(isset($_GET['page']) && $_GET['page'] == 'index') {
-            header('location: index.php?marcar=success');
+            header('location: tarefas_pendente.php?marcar=success');
         } else {
             header('location: todas_tarefas.php?marcar=success');
         }

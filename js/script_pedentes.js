@@ -2,7 +2,7 @@ function editar_pedentes(id, tarefa) {
 
     //Formulario
     let form = document.createElement('form');
-    form.action='index.php?page=index&acao=atualizar';
+    form.action='tarefas_pendente.php?page=index&acao=atualizar';
     form.method='post';
     form.className='row';
 
@@ -39,9 +39,9 @@ function editar_pedentes(id, tarefa) {
 }
 
 function excluir_pedentes(id) {
-    location.href = 'index.php?page=index&acao=remover&id='+id;       
+    location.href = 'tarefas_pendente.php?page=index&acao=remover&id='+id;       
 }
 
 function marcar_pedentes(id) {
-    location.href = 'index.php?page=index&acao=marcar&id='+id;  
+    location.href = 'tarefas_pendente.php?page=index&acao=marcar&id='+id;  
 }
