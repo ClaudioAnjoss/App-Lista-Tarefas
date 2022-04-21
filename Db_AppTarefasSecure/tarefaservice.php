@@ -8,6 +8,19 @@
             $this->tarefa = $tarefa;
         }
 
+        // Verificar se usuario existe
+        public function verificar() {
+            $query = "
+            SELECT * FROM tb_usuarios where login = :email
+            ";
+
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':email', $this->tarefa->__get('login'));
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         //Criar conta
         public function cadastro() {
             $query = "

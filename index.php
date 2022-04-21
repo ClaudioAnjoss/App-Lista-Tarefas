@@ -67,7 +67,7 @@ if (isset($_SESSION['usuario'])) {
 									</div>
 								<?php } ?>
 
-								
+
 
 								<?php if (isset($_GET['acesso']) && $_GET['acesso'] == 'negado') { ?>
 									<div class="alert text-light bg-danger fade show" role="alert">
@@ -98,11 +98,14 @@ if (isset($_SESSION['usuario'])) {
 							</div>
 							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 								<div class="login">
-									<form class="p-3" action="scripts/tarefa_controller.php?acao=criar_conta" method="post">
+									<form id="cadastro" class="p-3" action="scripts/tarefa_controller.php?acao=criar_conta" method="post">
 										<input type="text" name="nome" id="" class="form-control form_login" placeholder="Nome" required>
-										<input type="email" name="email" id="" class="form-control form_login" placeholder="Nome de usuário" required>
-										<input type="password" name="senha" id="" class="form-control form_login" placeholder="Senha" required>
-										<button type="submit" class="btn ml-auto btn-block">Criar Conta</button>
+										<input id="email" type="email" name="email" id="" class="form-control form_login" placeholder="E-mail" style="margin-bottom: 0;" required>
+										<p id="feedback_email" class="lead" style="font-size: 0.9em;"></p>
+										<input id="pass" type="password" name="senha" id="" class="form-control form_login" placeholder="Senha" required>
+										<input id="confirm_pass" type="password" name="senha" id="" class="form-control form_login" placeholder="Repita a senha" style="margin-bottom: 0;" required>
+										<p id="feedback_pass" class="lead" style="font-size: 0.9em;"></p>
+										<button id="sub" type="submit" class="btn ml-auto btn-block">Criar Conta</button>
 									</form>
 								</div>
 							</div>
@@ -117,7 +120,7 @@ if (isset($_SESSION['usuario'])) {
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -127,6 +130,48 @@ if (isset($_SESSION['usuario'])) {
 				$('.nav-link').removeClass('active');
 				$(this).addClass('active');
 			});
+
+			$("#confirm_pass").keyup(() => {
+
+				if ($('#pass').val() == $('#confirm_pass').val()) {
+					$('#feedback_pass').css('color', 'green');
+					$('#feedback_pass').html('Valida');
+				} else {
+					$('#feedback_pass').css('color', 'red');
+					$('#feedback_pass').html('Invalida');
+				}
+			})
+
+			$('#sub').click(e => {
+				if ($('#pass').val() == $('#confirm_pass').val()) {
+					e.preventDefault();
+					let email = $('#email').val();
+
+					$.ajax({
+						type: 'GET',
+						url: 'Db_AppTarefasSecure/tarefa_controller.php',
+						data: `acao=verificar&email=${email}`,
+						dataType: 'json',
+						success: dados => {
+							console.log(dados[0]);
+							if (dados[0]) {
+								$('#feedback_email').css('color', 'red');
+								$('#feedback_email').html('E-mail já existe, tente outro');
+							} else {
+								$('#cadastro').submit()
+							}
+						},
+						erro: erro => {console.log(erro)}
+					})
+
+				} else {
+					e.preventDefault();
+					console.log('o usuario não podera enviar');
+					$('#feedback_pass').css('color', 'red');
+					$('#feedback_pass').html('Senha invalida, Por favor confirme a senha a senha para o envio do formulario.');
+				}
+
+			})
 		});
 	</script>
 </body>

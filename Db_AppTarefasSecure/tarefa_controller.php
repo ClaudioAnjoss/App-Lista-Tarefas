@@ -8,6 +8,23 @@ require 'login.php';
 
 $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao ;
 
+
+
+    // Verificar se usuario existe
+    if($acao == 'verificar') {
+        $email = $_GET['email'];
+
+        $login = new Login();
+        $login->__set('login', $email);
+
+        $conexao = new Conexao();
+
+        $tarefaService = new TarefaService($conexao, $login);
+        $verificado = $tarefaService->verificar();
+
+        echo json_encode($verificado);
+    }
+
     //Criar Conta
     if($acao == 'criar_conta') {
         $nome = $_POST['nome'];
