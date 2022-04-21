@@ -26,6 +26,8 @@ if (!isset($_SESSION['usuario'])) {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
 	<title>App Lista Tarefas</title>
 </head>
 
